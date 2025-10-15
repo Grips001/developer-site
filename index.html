@@ -3,55 +3,405 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Developer Portfolio</title>
+  <title>Jhon Vise - Software Developer</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    * {
       margin: 0;
-      background: #f4f4f4;
-      color: #333;
+      padding: 0;
+      box-sizing: border-box;
     }
-    header {
-      background: #333;
-      color: #fff;
-      padding: 20px 40px;
+
+    @keyframes backgroundFlow {
+      0%, 100% { 
+        transform: translate(0%, 0%) scale(1);
+      }
+      25% { 
+        transform: translate(5%, -5%) scale(1.05);
+      }
+      50% { 
+        transform: translate(0%, 10%) scale(1.02);
+      }
+      75% { 
+        transform: translate(-5%, -3%) scale(1.05);
+      }
+    }
+
+    @keyframes floatOrb {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(40px, -30px) scale(1.1); }
+      66% { transform: translate(-30px, 25px) scale(0.95); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(40px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes gentleGlow {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 0.9; }
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(ellipse at center, #1e293b 0%, #0f172a 40%, #020617 80%);
+      z-index: 0;
+      animation: backgroundFlow 45s ease-in-out infinite;
+      opacity: 0.8;
+    }
+
+    /* Ambient lighting orbs */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.15;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .orb-1 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, #3b82f6 0%, transparent 70%);
+      top: -200px;
+      right: -100px;
+      animation: floatOrb 25s ease-in-out infinite;
+    }
+
+    .orb-2 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, #14b8a6 0%, transparent 70%);
+      bottom: -150px;
+      left: -150px;
+      animation: floatOrb 30s ease-in-out infinite reverse;
+    }
+
+    .orb-3 {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, #f59e0b 0%, transparent 70%);
+      top: 50%;
+      right: -100px;
+      animation: floatOrb 20s ease-in-out infinite;
+      animation-delay: -5s;
+    }
+
+    .orb-4 {
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, #ec4899 0%, transparent 70%);
+      bottom: 10%;
+      right: 20%;
+      animation: floatOrb 28s ease-in-out infinite;
+      animation-delay: -10s;
+    }
+
+    /* Main container */
+    .container {
+      max-width: 1000px;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+      animation: fadeIn 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Hero identity section */
+    .identity {
       text-align: center;
+      margin-bottom: 60px;
+      animation: fadeIn 1s ease-out 0.3s both;
     }
-    main {
-      padding: 40px;
-      max-width: 800px;
-      margin: auto;
-      background: #fff;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+    .name-container {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 20px;
     }
-    h1, h2 {
-      color: #444;
+
+    .name {
+      font-size: 4em;
+      font-weight: 200;
+      letter-spacing: 8px;
+      background: linear-gradient(135deg, #3b82f6 0%, #14b8a6 50%, #f59e0b 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
     }
-    footer {
+
+    .name::before {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      background: linear-gradient(135deg, #3b82f6 0%, #14b8a6 50%, #f59e0b 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: blur(20px);
+      opacity: 0.5;
+      animation: shimmer 3s linear infinite;
+    }
+
+    .title {
+      font-size: 1em;
+      color: #94a3b8;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      font-weight: 300;
+      opacity: 0.8;
+    }
+
+    .divider {
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #3b82f6, #14b8a6, transparent);
+      margin: 30px auto;
+      animation: gentleGlow 3s ease-in-out infinite;
+    }
+
+    /* Card grid */
+    .cards {
+      display: grid;
+      gap: 30px;
+      grid-template-columns: 1fr;
+    }
+
+    .card {
+      background: rgba(30, 41, 59, 0.3);
+      backdrop-filter: blur(30px) saturate(180%);
+      border: 1px solid rgba(148, 163, 184, 0.08);
+      border-radius: 28px;
+      padding: 45px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, 
+        rgba(59, 130, 246, 0) 0%,
+        rgba(59, 130, 246, 0.1) 50%,
+        rgba(20, 184, 166, 0.1) 100%);
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      z-index: -1;
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card:nth-child(1) {
+      animation: fadeIn 1s ease-out 0.6s both;
+    }
+
+    .card:nth-child(2) {
+      animation: fadeIn 1s ease-out 0.8s both;
+    }
+
+    .card:nth-child(3) {
+      animation: fadeIn 1s ease-out 1s both;
+    }
+
+    .card:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 
+        0 25px 60px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      border-color: rgba(59, 130, 246, 0.2);
+    }
+
+    .card-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 25px;
+      font-size: 24px;
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+
+    .card:nth-child(1) .card-icon {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(6, 182, 212, 0.2));
+      color: #60a5fa;
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+    }
+
+    .card:nth-child(2) .card-icon {
+      background: linear-gradient(135deg, rgba(20, 184, 166, 0.2), rgba(16, 185, 129, 0.2));
+      color: #5eead4;
+      box-shadow: 0 0 20px rgba(20, 184, 166, 0.3);
+    }
+
+    .card:nth-child(3) .card-icon {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(249, 115, 22, 0.2));
+      color: #fbbf24;
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+    }
+
+    .card:hover .card-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    h2 {
+      color: #f1f5f9;
+      font-size: 1.6em;
+      font-weight: 300;
+      margin-bottom: 15px;
+      letter-spacing: 2px;
+    }
+
+    p {
+      line-height: 1.9;
+      color: #cbd5e1;
+      font-size: 1.05em;
+      font-weight: 300;
+    }
+
+    a {
+      color: #3b82f6;
+      text-decoration: none;
+      position: relative;
+      transition: all 0.3s ease;
+      font-weight: 400;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+
+    a:hover {
+      color: #60a5fa;
+      background: rgba(59, 130, 246, 0.1);
+    }
+
+    /* Footer */
+    .footer {
       text-align: center;
-      padding: 20px;
+      margin-top: 80px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(148, 163, 184, 0.1);
+      color: #64748b;
       font-size: 0.9em;
-      color: #777;
+      font-weight: 300;
+      animation: fadeIn 1s ease-out 1.2s both;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      body {
+        padding: 30px 15px;
+      }
+
+      .name {
+        font-size: 2.5em;
+        letter-spacing: 4px;
+      }
+
+      .title {
+        font-size: 0.85em;
+        letter-spacing: 4px;
+      }
+
+      .card {
+        padding: 35px 25px;
+        border-radius: 24px;
+      }
+
+      h2 {
+        font-size: 1.4em;
+      }
+
+      .identity {
+        margin-bottom: 40px;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .cards {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Jhon Vise</h1>
-    <p>Mobile App Developer</p>
-  </header>
-  <main>
-    <h2>About</h2>
-    <p>This is the official website of Jhon Vise. Apps created may include utility, productivity, or entertainment features designed to enhance the user experience.</p>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="orb orb-4"></div>
+  
+  <div class="container">
+    <div class="identity">
+      <div class="name-container">
+        <h1 class="name" data-text="JHON VISE">JHON VISE</h1>
+      </div>
+      <p class="title">Software Developer</p>
+      <div class="divider"></div>
+    </div>
 
-    <h2>Privacy Policy</h2>
-    <p>This developer does not collect or share any personal information unless explicitly stated within the app. Any data collected will be handled according to industry best practices and user consent.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">👤</div>
+        <h2>About</h2>
+        <p>Welcome to the official portfolio of Jhon Vise. I create software solutions across multiple platforms — mobile applications, web applications, and desktop tools. Each project is crafted with attention to functionality, user experience, and performance. Whether utility-driven, productivity-focused, or entertainment-oriented, my work prioritizes quality and reliability.</p>
+      </div>
 
-    <h2>Contact</h2>
-    <p>If you have questions or concerns, please contact: <a href="mailto:jdvise001@gmail.com">jdvise001@gmail.com</a></p>
-  </main>
-  <footer>
-    &copy; 2025 Jhon Vise
-  </footer>
+      <div class="card">
+        <div class="card-icon">🔒</div>
+        <h2>Privacy Commitment</h2>
+        <p>User privacy is fundamental to every project I develop. I do not collect, store, or share personal information unless explicitly required for core functionality — and when data handling is necessary, it is clearly disclosed and conducted with full transparency. Your data remains yours. No tracking, no profiling, no third-party monetization. This commitment applies to all software, web applications, and services under this portfolio.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">✉️</div>
+        <h2>Contact</h2>
+        <p>For inquiries, support, or collaboration opportunities, feel free to reach out: <a href="mailto:jdvise001@gmail.com">jdvise001@gmail.com</a></p>
+      </div>
+    </div>
+
+    <div class="footer">
+      &copy; 2025 Jhon Vise
+    </div>
+  </div>
 </body>
 </html>
